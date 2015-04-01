@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B600290-7B0F-4552-BA29-A5188A934303}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Licensing.Repository</RootNamespace>
+    <AssemblyName>Licensing.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Catalog\CountryRepository.cs" />
+    <Compile Include="Database\AspNetRoles.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserClaims.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserLogins.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUsers.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CatPeriod.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Client.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ComputerClient.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ComputerServer.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Country.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ExceptionLog.cs">
+      <DependentUpon>Logger.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\License.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\LicensePeriod.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Licensing.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Licensing.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Licensing.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Licensing.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Licensing.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Logger.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logger.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Logger.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logger.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Logger.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logger.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Metadata\ViewLicenseGridJson.cs" />
+    <Compile Include="Database\Metadata\ViewClientGridJson.cs" />
+    <Compile Include="Database\ViewClientGrid.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ViewLicenseGrid.cs">
+      <DependentUpon>Licensing.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Management\LicenseRepository.cs" />
+    <Compile Include="Management\ClientRepository.cs" />
+    <Compile Include="Management\IClientRepository.cs" />
+    <Compile Include="Log\SharedLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResShared.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResShared.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\BaseRepository.cs" />
+    <Compile Include="Shared\EntityConstants.cs" />
+    <Compile Include="Shared\GenericRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Database\Licensing.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Licensing.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Database\Licensing.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Licensing.edmx</DependentUpon>
+      <LastGenOutput>Licensing.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Database\Licensing.edmx.diagram">
+      <DependentUpon>Licensing.edmx</DependentUpon>
+    </None>
+    <None Include="Database\Licensing.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Licensing.edmx</DependentUpon>
+      <LastGenOutput>Licensing.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Database\Logger.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Logger.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\Logger.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Logger.edmx</DependentUpon>
+      <LastGenOutput>Logger.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Database\Logger.edmx.diagram">
+      <DependentUpon>Logger.edmx</DependentUpon>
+    </None>
+    <None Include="Database\Logger.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Logger.edmx</DependentUpon>
+      <LastGenOutput>Logger.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ResShared.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResShared.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{DF8BC680-27B2-46A9-B7A2-8AD786DBC5E0}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Licensing.Model\Licensing.Model.csproj">
+      <Project>{9904F1FC-B65A-4C28-85F6-943A1AC36A6D}</Project>
+      <Name>Licensing.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

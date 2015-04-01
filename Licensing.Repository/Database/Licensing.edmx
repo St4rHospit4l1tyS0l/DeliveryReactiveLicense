@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LicenseCallCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatPeriod">
+          <Key>
+            <PropertyRef Name="CatPeriodId" />
+          </Key>
+          <Property Name="CatPeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullAddress" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="InsDateTime" Type="datetime" Nullable="false" />
+          <Property Name="InsUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdDateTime" Type="datetime" />
+          <Property Name="UpdUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="ComputerClient">
+          <Key>
+            <PropertyRef Name="ComputerClientId" />
+          </Key>
+          <Property Name="ComputerClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LicensePeriodId" Type="int" Nullable="false" />
+          <Property Name="HardwareId" Type="nvarchar(max)" />
+          <Property Name="ClientHost" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="TimestampActivation" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ComputerServer">
+          <Key>
+            <PropertyRef Name="ComputerServerId" />
+          </Key>
+          <Property Name="ComputerServerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LicensePeriodId" Type="int" Nullable="false" />
+          <Property Name="HardwareId" Type="nvarchar(max)" />
+          <Property Name="ServerName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="TimestampActivation" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="License">
+          <Key>
+            <PropertyRef Name="LicenseId" />
+          </Key>
+          <Property Name="LicenseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ActivationCode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LicenseCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="InsDateTime" Type="datetime" Nullable="false" />
+          <Property Name="InsUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdDateTime" Type="datetime" />
+          <Property Name="UpdUserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="DelDateTime" Type="datetime" />
+          <Property Name="DelUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="LicensePeriod">
+          <Key>
+            <PropertyRef Name="LicensePeriodId" />
+          </Key>
+          <Property Name="LicensePeriodId" Type="int" Nullable="false" />
+          <Property Name="LicenseId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="CatPeriodId" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="ServerNumber" Type="int" Nullable="false" />
+          <Property Name="ClientNumber" Type="int" Nullable="false" />
+          <Property Name="IsPayed" Type="bit" Nullable="false" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="TimestampActivation" Type="datetime" />
+          <Property Name="InsDateTime" Type="datetime" Nullable="false" />
+          <Property Name="InsUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DelDateTime" Type="datetime" />
+          <Property Name="DelUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LicenseCallCenter.dbo.ViewClientGrid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewClientGrid">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Company" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="CountryName" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullAddress" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewLicenseGrid">
+          <Key>
+            <PropertyRef Name="LicenseId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="IsObsolete" />
+            <PropertyRef Name="InsDateTime" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="LicenseId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="InsDateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Client_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComputerClient_LicensePeriod">
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="1" />
+          <End Role="ComputerClient" Type="Self.ComputerClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LicensePeriod">
+              <PropertyRef Name="LicensePeriodId" />
+            </Principal>
+            <Dependent Role="ComputerClient">
+              <PropertyRef Name="LicensePeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComputerServer_LicensePeriod">
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="1" />
+          <End Role="ComputerServer" Type="Self.ComputerServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LicensePeriod">
+              <PropertyRef Name="LicensePeriodId" />
+            </Principal>
+            <Dependent Role="ComputerServer">
+              <PropertyRef Name="LicensePeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="License" Type="Self.License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="License" Type="Self.License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_CatPeriod">
+          <End Role="CatPeriod" Type="Self.CatPeriod" Multiplicity="1" />
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatPeriod">
+              <PropertyRef Name="CatPeriodId" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="CatPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_License">
+          <End Role="License" Type="Self.License" Multiplicity="1" />
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="License">
+              <PropertyRef Name="LicenseId" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="LicenseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LicenseCallCenterModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatPeriod" EntityType="Self.CatPeriod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComputerClient" EntityType="Self.ComputerClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComputerServer" EntityType="Self.ComputerServer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="License" EntityType="Self.License" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LicensePeriod" EntityType="Self.LicensePeriod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewClientGrid" EntityType="Self.ViewClientGrid" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewClientGrid].[ClientId] AS [ClientId], 
+    [ViewClientGrid].[FirstName] AS [FirstName], 
+    [ViewClientGrid].[LastName] AS [LastName], 
+    [ViewClientGrid].[Company] AS [Company], 
+    [ViewClientGrid].[Email] AS [Email], 
+    [ViewClientGrid].[Phone] AS [Phone], 
+    [ViewClientGrid].[FullAddress] AS [FullAddress], 
+    [ViewClientGrid].[CountryName] AS [CountryName]
+    FROM [dbo].[ViewClientGrid] AS [ViewClientGrid]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewLicenseGrid" EntityType="Self.ViewLicenseGrid" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewLicenseGrid].[LicenseId] AS [LicenseId], 
+    [ViewLicenseGrid].[Name] AS [Name], 
+    [ViewLicenseGrid].[IsActive] AS [IsActive], 
+    [ViewLicenseGrid].[IsObsolete] AS [IsObsolete], 
+    [ViewLicenseGrid].[InsDateTime] AS [InsDateTime], 
+    [ViewLicenseGrid].[UserName] AS [UserName]
+    FROM [dbo].[ViewLicenseGrid] AS [ViewLicenseGrid]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Client_AspNetUsers" Association="Self.FK_Client_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Country" Association="Self.FK_Client_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerClient_LicensePeriod" Association="Self.FK_ComputerClient_LicensePeriod">
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+            <End Role="ComputerClient" EntitySet="ComputerClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerServer_LicensePeriod" Association="Self.FK_ComputerServer_LicensePeriod">
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+            <End Role="ComputerServer" EntitySet="ComputerServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers" Association="Self.FK_License_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_Client" Association="Self.FK_License_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_AspNetUsers" Association="Self.FK_LicensePeriod_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_CatPeriod" Association="Self.FK_LicensePeriod_CatPeriod">
+            <End Role="CatPeriod" EntitySet="CatPeriod" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_License" Association="Self.FK_LicensePeriod_License">
+            <End Role="License" EntitySet="License" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LicenseCallCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LicenseCallCenterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="LicenseCallCenterModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="LicenseCallCenterModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="LicenseCallCenterModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="LicenseCallCenterModel.AspNetUsers" />
+          <EntitySet Name="CatPeriod" EntityType="LicenseCallCenterModel.CatPeriod" />
+          <EntitySet Name="Client" EntityType="LicenseCallCenterModel.Client" />
+          <EntitySet Name="ComputerClient" EntityType="LicenseCallCenterModel.ComputerClient" />
+          <EntitySet Name="ComputerServer" EntityType="LicenseCallCenterModel.ComputerServer" />
+          <EntitySet Name="Country" EntityType="LicenseCallCenterModel.Country" />
+          <EntitySet Name="License" EntityType="LicenseCallCenterModel.License" />
+          <EntitySet Name="LicensePeriod" EntityType="LicenseCallCenterModel.LicensePeriod" />
+          <EntitySet Name="ViewClientGrid" EntityType="LicenseCallCenterModel.ViewClientGrid" />
+          <EntitySet Name="ViewLicenseGrid" EntityType="LicenseCallCenterModel.ViewLicenseGrid" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="LicenseCallCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="LicenseCallCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_AspNetUsers" Association="LicenseCallCenterModel.FK_Client_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers" Association="LicenseCallCenterModel.FK_License_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_AspNetUsers" Association="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_CatPeriod" Association="LicenseCallCenterModel.FK_LicensePeriod_CatPeriod">
+            <End Role="CatPeriod" EntitySet="CatPeriod" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Country" Association="LicenseCallCenterModel.FK_Client_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_Client" Association="LicenseCallCenterModel.FK_License_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerClient_LicensePeriod" Association="LicenseCallCenterModel.FK_ComputerClient_LicensePeriod">
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+            <End Role="ComputerClient" EntitySet="ComputerClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerServer_LicensePeriod" Association="LicenseCallCenterModel.FK_ComputerServer_LicensePeriod">
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+            <End Role="ComputerServer" EntitySet="ComputerServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_License" Association="LicenseCallCenterModel.FK_LicensePeriod_License">
+            <End Role="License" EntitySet="License" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="LicenseCallCenterModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Client" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers" FromRole="AspNetUsers" ToRole="Client" />
+          <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers" FromRole="AspNetUsers" ToRole="License" />
+          <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers" FromRole="AspNetUsers" ToRole="LicensePeriod" />
+          <NavigationProperty Name="AspNetRoles" Relationship="LicenseCallCenterModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="CatPeriod">
+          <Key>
+            <PropertyRef Name="CatPeriodId" />
+          </Key>
+          <Property Name="CatPeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_CatPeriod" FromRole="CatPeriod" ToRole="LicensePeriod" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullAddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers" FromRole="Client" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Country" Relationship="LicenseCallCenterModel.FK_Client_Country" FromRole="Client" ToRole="Country" />
+          <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_License_Client" FromRole="Client" ToRole="License" />
+        </EntityType>
+        <EntityType Name="ComputerClient">
+          <Key>
+            <PropertyRef Name="ComputerClientId" />
+          </Key>
+          <Property Name="ComputerClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LicensePeriodId" Type="Int32" Nullable="false" />
+          <Property Name="HardwareId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientHost" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="TimestampActivation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_ComputerClient_LicensePeriod" FromRole="ComputerClient" ToRole="LicensePeriod" />
+        </EntityType>
+        <EntityType Name="ComputerServer">
+          <Key>
+            <PropertyRef Name="ComputerServerId" />
+          </Key>
+          <Property Name="ComputerServerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LicensePeriodId" Type="Int32" Nullable="false" />
+          <Property Name="HardwareId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServerName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="TimestampActivation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_ComputerServer_LicensePeriod" FromRole="ComputerServer" ToRole="LicensePeriod" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="LicenseCallCenterModel.FK_Client_Country" FromRole="Country" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="License">
+          <Key>
+            <PropertyRef Name="LicenseId" />
+          </Key>
+          <Property Name="LicenseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ActivationCode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DelDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DelUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers" FromRole="License" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Client" Relationship="LicenseCallCenterModel.FK_License_Client" FromRole="License" ToRole="Client" />
+          <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_License" FromRole="License" ToRole="LicensePeriod" />
+        </EntityType>
+        <EntityType Name="LicensePeriod">
+          <Key>
+            <PropertyRef Name="LicensePeriodId" />
+          </Key>
+          <Property Name="LicensePeriodId" Type="Int32" Nullable="false" />
+          <Property Name="LicenseId" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CatPeriodId" Type="Int32" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ServerNumber" Type="Int32" Nullable="false" />
+          <Property Name="ClientNumber" Type="Int32" Nullable="false" />
+          <Property Name="IsPayed" Type="Boolean" Nullable="false" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="TimestampActivation" Type="DateTime" Precision="3" />
+          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DelDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DelUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers" FromRole="LicensePeriod" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CatPeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_CatPeriod" FromRole="LicensePeriod" ToRole="CatPeriod" />
+          <NavigationProperty Name="ComputerClient" Relationship="LicenseCallCenterModel.FK_ComputerClient_LicensePeriod" FromRole="LicensePeriod" ToRole="ComputerClient" />
+          <NavigationProperty Name="ComputerServer" Relationship="LicenseCallCenterModel.FK_ComputerServer_LicensePeriod" FromRole="LicensePeriod" ToRole="ComputerServer" />
+          <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_LicensePeriod_License" FromRole="LicensePeriod" ToRole="License" />
+        </EntityType>
+        <EntityType Name="ViewClientGrid">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Company" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="CountryName" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewLicenseGrid">
+          <Key>
+            <PropertyRef Name="LicenseId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="IsObsolete" />
+            <PropertyRef Name="InsDateTime" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="LicenseId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LicenseCallCenterModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LicenseCallCenterModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_AspNetUsers">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_AspNetUsers">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_AspNetUsers">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_CatPeriod">
+          <End Type="LicenseCallCenterModel.CatPeriod" Role="CatPeriod" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatPeriod">
+              <PropertyRef Name="CatPeriodId" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="CatPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Country">
+          <End Type="LicenseCallCenterModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_Client">
+          <End Type="LicenseCallCenterModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComputerClient_LicensePeriod">
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.ComputerClient" Role="ComputerClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LicensePeriod">
+              <PropertyRef Name="LicensePeriodId" />
+            </Principal>
+            <Dependent Role="ComputerClient">
+              <PropertyRef Name="LicensePeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComputerServer_LicensePeriod">
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.ComputerServer" Role="ComputerServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LicensePeriod">
+              <PropertyRef Name="LicensePeriodId" />
+            </Principal>
+            <Dependent Role="ComputerServer">
+              <PropertyRef Name="LicensePeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_License">
+          <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="1" />
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="License">
+              <PropertyRef Name="LicenseId" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="LicenseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="LicenseCallCenterModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LicenseCallCenterModelStoreContainer" CdmEntityContainer="LicenseCallCenterEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatPeriod">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.CatPeriod">
+              <MappingFragment StoreEntitySet="CatPeriod">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CatPeriodId" ColumnName="CatPeriodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="UpdUserId" ColumnName="UpdUserId" />
+                <ScalarProperty Name="UpdDateTime" ColumnName="UpdDateTime" />
+                <ScalarProperty Name="InsUserId" ColumnName="InsUserId" />
+                <ScalarProperty Name="InsDateTime" ColumnName="InsDateTime" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="FullAddress" ColumnName="FullAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComputerClient">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.ComputerClient">
+              <MappingFragment StoreEntitySet="ComputerClient">
+                <ScalarProperty Name="TimestampActivation" ColumnName="TimestampActivation" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="ClientHost" ColumnName="ClientHost" />
+                <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
+                <ScalarProperty Name="LicensePeriodId" ColumnName="LicensePeriodId" />
+                <ScalarProperty Name="ComputerClientId" ColumnName="ComputerClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComputerServer">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.ComputerServer">
+              <MappingFragment StoreEntitySet="ComputerServer">
+                <ScalarProperty Name="TimestampActivation" ColumnName="TimestampActivation" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
+                <ScalarProperty Name="LicensePeriodId" ColumnName="LicensePeriodId" />
+                <ScalarProperty Name="ComputerServerId" ColumnName="ComputerServerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Country">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="License">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.License">
+              <MappingFragment StoreEntitySet="License">
+                <ScalarProperty Name="DelUserId" ColumnName="DelUserId" />
+                <ScalarProperty Name="DelDateTime" ColumnName="DelDateTime" />
+                <ScalarProperty Name="UpdUserId" ColumnName="UpdUserId" />
+                <ScalarProperty Name="UpdDateTime" ColumnName="UpdDateTime" />
+                <ScalarProperty Name="InsUserId" ColumnName="InsUserId" />
+                <ScalarProperty Name="InsDateTime" ColumnName="InsDateTime" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LicenseCode" ColumnName="LicenseCode" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LicenseId" ColumnName="LicenseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LicensePeriod">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.LicensePeriod">
+              <MappingFragment StoreEntitySet="LicensePeriod">
+                <ScalarProperty Name="DelUserId" ColumnName="DelUserId" />
+                <ScalarProperty Name="DelDateTime" ColumnName="DelDateTime" />
+                <ScalarProperty Name="InsUserId" ColumnName="InsUserId" />
+                <ScalarProperty Name="InsDateTime" ColumnName="InsDateTime" />
+                <ScalarProperty Name="TimestampActivation" ColumnName="TimestampActivation" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="IsPayed" ColumnName="IsPayed" />
+                <ScalarProperty Name="ClientNumber" ColumnName="ClientNumber" />
+                <ScalarProperty Name="ServerNumber" ColumnName="ServerNumber" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CatPeriodId" ColumnName="CatPeriodId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="LicenseId" ColumnName="LicenseId" />
+                <ScalarProperty Name="LicensePeriodId" ColumnName="LicensePeriodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewClientGrid">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.ViewClientGrid">
+              <MappingFragment StoreEntitySet="ViewClientGrid">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="FullAddress" ColumnName="FullAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewLicenseGrid">
+            <EntityTypeMapping TypeName="LicenseCallCenterModel.ViewLicenseGrid">
+              <MappingFragment StoreEntitySet="ViewLicenseGrid">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="InsDateTime" ColumnName="InsDateTime" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LicenseId" ColumnName="LicenseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="LicenseCallCenterModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
