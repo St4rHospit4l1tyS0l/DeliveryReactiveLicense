@@ -96,7 +96,7 @@ namespace DeliveryReactiveLicensing.Controllers
                     if (model.ClientId == EntityConstants.NULL_VALUE)
                     {
                         var inModel = model.ToDataModel();
-                        // inModel.ActivationCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
+                        // - inModel.ActivationCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
                         inModel.InsDateTime = DateTime.Now;
                         inModel.InsUserId = User.Identity.GetUserId();
                         repository.Add(inModel);
