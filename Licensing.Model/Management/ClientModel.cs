@@ -5,7 +5,6 @@ namespace Licensing.Model.Management
 {
     public class ClientModel
     {
-
         public int ClientId { get; set; }
         
         [Required]

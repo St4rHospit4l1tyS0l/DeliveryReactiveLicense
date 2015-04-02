@@ -82,6 +82,8 @@
     <Compile Include="Annotations\ValidDateIntegerAttribute.cs" />
     <Compile Include="Annotations\MinMaxIntegerAttribute.cs" />
     <Compile Include="Email\EmailService.cs" />
+    <Compile Include="Extensions\BooleanExt.cs" />
+    <Compile Include="Extensions\ExpandoExt.cs" />
     <Compile Include="Extensions\ReflexionExtension.cs" />
     <Compile Include="JqGrid\JqGridQueryWhere.cs" />
     <Compile Include="JqGrid\JqGridClause.cs" />

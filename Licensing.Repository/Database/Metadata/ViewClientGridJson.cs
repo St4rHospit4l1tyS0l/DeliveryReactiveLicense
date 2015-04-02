@@ -95,7 +95,6 @@ namespace Licensing.Repository.Database.Metadata
             return model;
 
         }
-
         public static Client UpdateModel(this ClientModel model, Client oldModel, string userId)
         {
             oldModel.CountryId = model.CountryId;

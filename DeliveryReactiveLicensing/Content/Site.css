@@ -61,6 +61,10 @@ div.blocker img {
     text-align: center !important;
 }
 
+.element-right {
+    text-align: right !important;
+}
+
 .error {
     color: red;
     font-size: 11px;
@@ -89,4 +93,7 @@ div.blocker img {
 }
 .blue-light {
     color: #00a7ff;
+}
+.black {
+    color: #000;
 }

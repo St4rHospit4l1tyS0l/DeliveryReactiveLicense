@@ -352,6 +352,7 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\app\ctrl\clientCtrl.js" />
+    <Content Include="Scripts\app\drct\sharedDrct.js" />
     <Content Include="Scripts\app\shared\hiddenDrct.js" />
     <Content Include="Scripts\app\shared\modalDlgCtrl.js" />
     <Content Include="Scripts\app\shared\upsertCtrl.js" />
@@ -910,12 +911,10 @@
     <Content Include="Views\Client\Upsert.cshtml" />
     <Content Include="Views\Shared\_SharedServices.cshtml" />
     <Content Include="Views\License\Index.cshtml" />
-    <Content Include="Views\Home\Upsert.cshtml" />
     <Content Include="Views\License\Upsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\app\drct\" />
     <Folder Include="Scripts\app\svc\" />
   </ItemGroup>
   <ItemGroup>

@@ -131,6 +131,7 @@
     <Compile Include="Database\ViewLicenseGrid.cs">
       <DependentUpon>Licensing.tt</DependentUpon>
     </Compile>
+    <Compile Include="Management\PeriodRepository.cs" />
     <Compile Include="Management\LicenseRepository.cs" />
     <Compile Include="Management\ClientRepository.cs" />
     <Compile Include="Management\IClientRepository.cs" />

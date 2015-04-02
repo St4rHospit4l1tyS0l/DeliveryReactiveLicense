@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
+using Infrastructure.Extensions;
 using Licensing.Model.Management;
 using Licensing.Repository.Database;
 using Licensing.Repository.Shared;
@@ -33,14 +35,14 @@ namespace Licensing.Repository.Management
             }).FirstOrDefault();
         }
 
-        public dynamic GetClientInfoById(int clId)
+        public ExpandoObject GetClientInfoById(int clId)
         {
             return DbConn.Client.Where(e => e.ClientId == clId)
                 .Select(e => new
                 {
                     FullName = e.FirstName + " " + e.LastName, 
                     e.Email
-                }).FirstOrDefault();
+                }).Single().ToExpando();
         }
     }
 }

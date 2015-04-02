@@ -19,6 +19,7 @@ namespace Licensing.Repository.Database
         public bool IsActive { get; set; }
         public bool IsObsolete { get; set; }
         public System.DateTime InsDateTime { get; set; }
-        public string UserName { get; set; }
+        public string InsUserName { get; set; }
+        public int ClientId { get; set; }
     }
 }

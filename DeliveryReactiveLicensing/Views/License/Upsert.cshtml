@@ -1,4 +1,5 @@
-﻿@model Licensing.Model.Management.LicenseModel
+﻿@using Infrastructure.Extensions
+@model Licensing.Model.Management.LicenseModel
 @{
     Layout = null;
 }
@@ -18,10 +19,10 @@
 
         $("#chosen-select").chosen({});
 
-        //$('.i-checks').iCheck({
-        //    checkboxClass: 'icheckbox_square-green',
-        //    radioClass: 'iradio_square-green',
-        //});
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
     });
 
 </script>
@@ -31,15 +32,15 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">Cliente</h4>
+                <i class="fa fa-windows modal-icon"></i>
+                <h4 class="modal-title">Licencia</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="ibox">
                             <div class="ibox-title navy-bg">
-                                <h5>Información del cliente</h5>
+                                <h5>Información de la licencia para el cliente @ViewBag.ClientInfo.FullName</h5>
                             </div>
                         </div>
                     </div>
@@ -49,162 +50,94 @@
                         <form id="FormCatId" name="FormCatId" ng-submit="submit('#FormCatId')" class="form-horizontal" role="form">
                             @Html.AntiForgeryToken()
                             <input type="hidden" id="ClientId" name="ClientId" ng-model="m.ClientId" ng-init="m.ClientId = @Model.ClientId;" ng-update-hidden />
-                            <input type="hidden" id="CountryId" name="CountryId" ng-model="m.CountryId" ng-init="m.CountryId = @Model.CountryId;" ng-update-hidden />
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">Nombre</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" name="FirstName" ng-model="m.FirstName" ng-init="m.FirstName = '@Model.FirstName'"
-                                               placeholder="Ingresa el nombre del cliente"
-                                               required="required" ng-maxlength="100" class="form-control">
-                                        <span class="error" ng-show="FormCatId.FirstName.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.FirstName.$error.maxlength">*Longitud máxima de 100 caracteres</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">Apellido(s)</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" name="LastName" ng-model="m.LastName" ng-init="m.LastName = '@Model.LastName'"
-                                               placeholder="Ingresa el o los apellidos del cliente"
-                                               required="required" ng-maxlength="100" class="form-control">
-                                        <span class="error" ng-show="FormCatId.LastName.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.LastName.$error.maxlength">*Longitud máxima de 100 caracteres</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-15"></div>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">Empresa</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" name="Company" ng-model="m.Company" ng-init="m.Company = '@Model.Company'"
-                                               placeholder="Ingresa la empresa del cliente"
-                                               required="required" ng-maxlength="100" class="form-control">
-                                        <span class="error" ng-show="FormCatId.Company.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.Company.$error.maxlength">*Longitud máxima de 100 caracteres</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">Correo electrónico</label>
-                                    <div class="col-xs-9">
-                                        <input type="email" name="Email" ng-model="m.Email" class="form-control" ng-init="m.Email = '@Model.Email'"
-                                               placeholder="Ingresa el correo electrónico"
-                                               required="required" ng-maxlength="500">
-                                        <span class="error" ng-show="FormCatId.Email.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.Email.$error.maxlength">*Longitud máxima de 500 caracteres</span>
-                                        <span class="error" ng-show="FormCatId.Email.$error.email">*Correo electrónico no válido</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-15"></div>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">País</label>
-                                    <div class="col-xs-9 input-group">
-                                        <select data-placeholder="Elige un país..." style="width:265px;" id="chosen-select"
-                                                ng-init="lstCountries = @ViewBag.CatCountry;  initCountry();" ng-change="m.CountryId = m.country.Key;"
-                                                ng-options="c.Name for c in lstCountries" ng-model="m.country"></select>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label class="col-xs-3 control-label font-noraml">Teléfono</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" name="Phone" ng-model="m.Phone" ng-init="m.Phone = '@Model.Phone'"
-                                               placeholder="Ingresa el teléfono del cliente"
-                                               required="required" ng-maxlength="20" class="form-control">
-                                        <span class="error" ng-show="FormCatId.Phone.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.Phone.$error.maxlength">*Longitud máxima de 20 caracteres</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-15"></div>
+                            <input type="hidden" id="LicenseId" name="LicenseId" ng-model="m.LicenseId" ng-init="m.LicenseId = @Model.LicenseId;" ng-update-hidden />
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <label class="col-xs-2 control-label font-noraml">Dirección</label>
+                                    <label class="col-xs-3 control-label font-noraml">Nombre</label>
                                     <div class="col-xs-9">
-                                        <input type="text" name="FullAddress" ng-model="m.FullAddress" ng-init="m.FullAddress = '@Model.FullAddress'"
-                                               placeholder="Ingresa la dirección completa"
-                                               required="required" ng-maxlength="500" class="form-control">
-                                        <span class="error" ng-show="FormCatId.FullAddress.$error.required">*Campo requerido</span>
-                                        <span class="error" ng-show="FormCatId.FullAddress.$error.maxlength">*Longitud máxima de 500 caracteres</span>
-
+                                        <input type="text" name="Name" ng-model="m.Name" ng-init="m.Name = '@Model.Name'"
+                                               placeholder="Ingresa un nombre para la licencia (i.e. Licencia Franquicia #3)"
+                                               required="required" ng-maxlength="50" class="form-control">
+                                        <span class="error" ng-show="FormCatId.Name.$error.required">*Campo requerido</span>
+                                        <span class="error" ng-show="FormCatId.Name.$error.maxlength">*Longitud máxima de 50 caracteres</span>
                                     </div>
                                 </div>
                             </div>
-                            @*
-    <div class="space-15"></div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="ibox">
-                <div class="ibox-title navy-bg">
-                    <h5>Información de la licencia</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-xs-6">
-            <div id="dtStart">
-                <label class="control-label font-noraml col-xs-5">Fecha inicial</label>
-                <div class="input-group date  col-xs-7">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" name="StartDateTx" class="form-control" ng-model="m.StartDateTx" ng-init="m.StartDateTx = '@Model.StartDateTx'">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div id="dtEnd">
-                <label class="control-label font-noraml col-xs-5">Fecha final</label>
-                <div class="input-group date col-xs-7">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input name="EndDateTx" type="text" class="form-control" ng-model="m.EndDateTx" ng-init="m.EndDateTx = '@Model.EndDateTx'">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="space-15"></div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="row">
-                <div class="col-xs-12">
-                    <label class="col-xs-5 control-label font-noraml"># de servidores</label>
-                    <div class="col-xs-7">
-                        <input type="number" name="ServerNumbers" ng-model="m.ServerNumbers" min="1" max="1000" ng-init="m.ServerNumbers = @Model.ServerNumbers"
-                               required="required" class="form-control">
-                        <span class="error" ng-show="FormCatId.ServerNumbers.$error.required">*Campo requerido</span>
-                        <span class="error" ng-show="FormCatId.ServerNumbers.$error.number">*Valor no válido</span>
-                        <span class="error" ng-show="FormCatId.ServerNumbers.$error.max  || FormCatId.serverNumbers.$error.min">*Valor fuera de los límites</span>
-                    </div>
-                    {{FormCatId.serverNumbers.$error.min}}
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="row">
-                <div class="col-xs-12">
-                    <label class="col-xs-5 control-label font-noraml"># de clientes</label>
-                    <div class="col-xs-7">
-                        <input type="number" name="ClientNumbers" ng-model="m.ClientNumbers" min="1" max="1000" ng-init="m.ClientNumbers = @Model.ClientNumbers"
-                               required="required" class="form-control">
-                        <span class="error" ng-show="FormCatId.ClientNumbers.$error.required">*Campo requerido</span>
-                        <span class="error" ng-show="FormCatId.ClientNumbers.$error.number">*Valor no válido</span>
-                        <span class="error" ng-show="FormCatId.ClientNumbers.$error.max  || FormCatId.clientNumbers.$error.min">*Valor fuera de los límites</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="space-15"></div>
-    <div class="row">
-        <div class="col-xs-4"> &nbsp;</div>
-        <div class="checkbox i-checks col-xs-8">
-            <label>
-                <input name="IsActive" type="checkbox" ng-model="m.IsActive" ng-init="m.IsActive = @Model.IsActive"> ¿La licencia ya fue pagada para su uso?
-            </label>
-        </div>
-    </div>*@
                             <div class="space-25"></div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="checkbox i-checks element-center">
+                                        <label>
+                                            <input name="IsActiveInTx" type="checkbox" ng-model="m.IsActive" ng-init="m.IsActive = @Model.IsActive.ToCheckVal()">
+                                            &nbsp;&nbsp; Activar la licencia
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>                            @*
+            <div class="space-15"></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="ibox">
+                        <div class="ibox-title navy-bg">
+                            <h5>Información de la licencia</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xs-6">
+                    <div id="dtStart">
+                        <label class="control-label font-noraml col-xs-5">Fecha inicial</label>
+                        <div class="input-group date  col-xs-7">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" name="StartDateTx" class="form-control" ng-model="m.StartDateTx" ng-init="m.StartDateTx = '@Model.StartDateTx'">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div id="dtEnd">
+                        <label class="control-label font-noraml col-xs-5">Fecha final</label>
+                        <div class="input-group date col-xs-7">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input name="EndDateTx" type="text" class="form-control" ng-model="m.EndDateTx" ng-init="m.EndDateTx = '@Model.EndDateTx'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-15"></div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label class="col-xs-5 control-label font-noraml"># de servidores</label>
+                            <div class="col-xs-7">
+                                <input type="number" name="ServerNumbers" ng-model="m.ServerNumbers" min="1" max="1000" ng-init="m.ServerNumbers = @Model.ServerNumbers"
+                                       required="required" class="form-control">
+                                <span class="error" ng-show="FormCatId.ServerNumbers.$error.required">*Campo requerido</span>
+                                <span class="error" ng-show="FormCatId.ServerNumbers.$error.number">*Valor no válido</span>
+                                <span class="error" ng-show="FormCatId.ServerNumbers.$error.max  || FormCatId.serverNumbers.$error.min">*Valor fuera de los límites</span>
+                            </div>
+                            {{FormCatId.serverNumbers.$error.min}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label class="col-xs-5 control-label font-noraml"># de clientes</label>
+                            <div class="col-xs-7">
+                                <input type="number" name="ClientNumbers" ng-model="m.ClientNumbers" min="1" max="1000" ng-init="m.ClientNumbers = @Model.ClientNumbers"
+                                       required="required" class="form-control">
+                                <span class="error" ng-show="FormCatId.ClientNumbers.$error.required">*Campo requerido</span>
+                                <span class="error" ng-show="FormCatId.ClientNumbers.$error.number">*Valor no válido</span>
+                                <span class="error" ng-show="FormCatId.ClientNumbers.$error.max  || FormCatId.clientNumbers.$error.min">*Valor fuera de los límites</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            *@
                         </form>
                         <br />
                         <div class="row">
@@ -218,13 +151,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <span class="btn btn-white" ng-click="cancel()">
+                <button class="btn btn-white" ng-click="cancel()">
                     Cancelar
-                </span>
-                <span class="btn btn-primary " ng-disabled="WaitFor==true"
-                      ng-click="submit('#FormCatId', '@Url.Action("DoUpsert", "Client")')">
+                </button>
+                <button class="btn btn-primary " ng-disabled="WaitFor==true"
+                      ng-click="submit('#FormCatId', '@Url.Action("DoUpsert", "License")')">
                     Guardar
-                </span>
+                </button>
             </div>
         </div>
     </div>

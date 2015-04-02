@@ -24,8 +24,14 @@ namespace DeliveryReactiveLicensing.Controllers
 
         readonly ILicenseService _licenseService = new LicenseService();
 
-        public ActionResult Index()
+        public ActionResult Index(int clId)
         {
+            using (var repositoryClient = new ClientRepository())
+            {
+                var infoClient = repositoryClient.GetClientInfoById(clId);
+                ViewBag.ClientInfo = infoClient;
+                ViewBag.ClId = clId;
+            }
             return View();
         }
 
@@ -33,7 +39,8 @@ namespace DeliveryReactiveLicensing.Controllers
         {
             using (var repository = new GenericRepository<ViewLicenseGrid>())
             {
-                var result = repository.JqGridFindBy(opts, ViewLicenseGridJson.Key, ViewLicenseGridJson.Columns, (e => e.IsObsolete == false)
+                var result = repository.JqGridFindBy(opts, ViewLicenseGridJson.Key, ViewLicenseGridJson.Columns, 
+                    (e => e.IsObsolete == false && e.ClientId == clId)
                     , ViewLicenseGridJson.DynamicToDto);
                 return Json(result);
             }
@@ -49,9 +56,7 @@ namespace DeliveryReactiveLicensing.Controllers
                 using (var repositoryClient = new ClientRepository())
                 {
                     var infoClient = repositoryClient.GetClientInfoById(clId);
-
-                    ViewBag.ClientFullName = infoClient.FullName;
-                    ViewBag.ClientEmail = infoClient.Email;
+                    ViewBag.ClientInfo = infoClient;
 
                     if (id.HasValue)
                     {
@@ -62,6 +67,8 @@ namespace DeliveryReactiveLicensing.Controllers
                     {
                         model = new LicenseModel
                         {
+                            ClientId = clId,
+                            IsActive = true,
                             LicenseId = EntityConstants.NULL_VALUE
                         };
                     }
@@ -76,7 +83,7 @@ namespace DeliveryReactiveLicensing.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DoUpsert(ClientModel model)
+        public ActionResult DoUpsert(LicenseModel model)
         {
             try
             {
@@ -91,19 +98,19 @@ namespace DeliveryReactiveLicensing.Controllers
                 }
 
 
-                using (var repository = new GenericRepository<Client>())
+                using (var repository = new GenericRepository<License>())
                 {
-                    if (model.ClientId == EntityConstants.NULL_VALUE)
+                    if (model.LicenseId == EntityConstants.NULL_VALUE)
                     {
                         var inModel = model.ToDataModel();
-                        ///    //inModel.ActivationCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
+                        inModel.ActivationCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
                         inModel.InsDateTime = DateTime.Now;
                         inModel.InsUserId = User.Identity.GetUserId();
                         repository.Add(inModel);
                     }
                     else
                     {
-                        var oldModel = repository.FindById(model.ClientId);
+                        var oldModel = repository.FindById(model.LicenseId);
                         var inModel = model.UpdateModel(oldModel, User.Identity.GetUserId());
 
                         repository.Update(inModel);
@@ -120,7 +127,7 @@ namespace DeliveryReactiveLicensing.Controllers
             }
             catch (Exception ex)
             {
-                SharedLogger.LogError(ex, model.ClientId, model.FirstName, model.LastName);
+                SharedLogger.LogError(ex, model.LicenseId, model.ClientId, model.Name);
                 return Json(new ResponseMessageModel
                 {
                     HasError = true,
@@ -236,5 +243,25 @@ namespace DeliveryReactiveLicensing.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Period(int id, int clId)
+        {
+            try
+            {
+                using (var repository = new PeriodRepository())
+                {
+                    var infoLicenseInfo = repository.GetLicenseInfoByIdAndClientId(id, clId);
+                    ViewBag.LicenseInfo = infoLicenseInfo;
+
+                    var repositoryPeriod = new PeriodRepository(repository.DbConn);
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedLogger.LogError(ex, id);
+            }
+
+            return View();
+        }
     }
 }

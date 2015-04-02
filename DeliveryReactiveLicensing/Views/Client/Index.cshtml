@@ -1,5 +1,5 @@
 ﻿<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+    <div class="col-xs-10">
         <h2>Módulo de licencias</h2>
         <ol class="breadcrumb">
             <li>
@@ -14,7 +14,7 @@
 
 <div class="wrapper wrapper-content  animated fadeInRight" id="angJsjqGridId" ng-controller="modalDlgController">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-xs-12">
             <div class="ibox ">
                 <div class="ibox-title">
                     <h5>Listado de clientes</h5>
@@ -72,20 +72,6 @@
             params.idParam=id;
             window.goToUrlMvcUrl('@Url.Action("Index", "License")?clId=idParam', params);
         };
-
-        @*window.obsolete = function(id) {
-                window.showObsolete(id, "#angJsjqGridId", "@Url.Action("DoObsolete", "Client")", "#GridId");
-            };
-
-            window.sendEmail = function(id) {
-                window.sendPostAction(id, "#angJsjqGridId", "@Url.Action("SendEmail", "Client")", undefined, true);
-            };
-
-            window.downloadCode = function(id) {
-                var params = [];
-                params["idParam"] = id;
-                window.goToUrlMvcUrl("@Url.Action("DownloadCode", "Client")" + "?id=idParam", params);
-            };*@
 
         jQuery("#GridId").jqGrid({
             url: '@Url.Action("List", "Client")',

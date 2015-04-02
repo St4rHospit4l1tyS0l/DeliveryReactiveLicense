@@ -8,7 +8,7 @@ namespace DeliveryReactiveLicensing.Service.License
     {
         public string[] GetInfoForActivationCode(int id)
         {
-            using (var licenseRepository = new ClientRepository())
+            using (var licenseRepository = new LicenseRepository())
             {
                 var result = licenseRepository.GetActivationCodeById(id);
                 return CreateActivactionCodeMsg(result);
