@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using DeliveryReactiveLicensing.Resources;
 using DeliveryReactiveLicensing.Service.License;
 using Infrastructure.JqGrid.Model;
 using Infrastructure.Models;
 using Licensing.Model.Management;
+using Licensing.Repository.Catalog;
 using Licensing.Repository.Database;
 using Licensing.Repository.Database.Metadata;
 using Licensing.Repository.Log;
@@ -156,21 +159,61 @@ namespace DeliveryReactiveLicensing.Controllers
             return Json("Archivo de activación incorrecto", JsonRequestBehavior.AllowGet);
         }
 
-
-
         [HttpPost]
-        public ActionResult DoObsolete(int id)
+        public ActionResult DoPayment(int id)
         {
             try
             {
-                using (var repository = new GenericRepository<License>())
+                using (var repository = new GenericRepository<LicensePeriod>())
                 {
                     var model = repository.FindById(id);
                     if (model == null)
                     {
                         return Json(new ResponseMessageModel
                         {
-                            HasError = false,
+                            HasError = true,
+                            Title = "Confirmación del pago",
+                            Message = "No se encontró el registro para confirmar el pago. <br/> Por favor actualice la información e intente de nuevo la operación."
+                        });
+                    }
+
+                    model.IsPayed = true;
+                    repository.Update(model);
+
+                    return Json(new ResponseMessageModel
+                    {
+                        HasError = false,
+                        Title = ResShared.TITLE_OBSOLETE_SUCCESS,
+                        Message = ResShared.INFO_REGISTER_SAVED
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedLogger.LogError(ex, id);
+                return Json(new ResponseMessageModel
+                {
+                    HasError = true,
+                    Title = ResShared.TITLE_OBSOLETE_FAILED,
+                    Message = ResShared.ERROR_UNKOWN
+                });
+            }
+        }
+
+        
+        [HttpPost]
+        public ActionResult DoObsolete(int id)
+        {
+            try
+            {
+                using (var repository = new GenericRepository<LicensePeriod>())
+                {
+                    var model = repository.FindById(id);
+                    if (model == null)
+                    {
+                        return Json(new ResponseMessageModel
+                        {
+                            HasError = true,
                             Title = ResShared.TITLE_OBSOLETE_FAILED,
                             Message = ResShared.ERROR_MODEL_NOTFOUND
                         });
@@ -248,12 +291,17 @@ namespace DeliveryReactiveLicensing.Controllers
         {
             try
             {
+                ViewBag.StartDate = DateTime.Today.ToString(SharedConstants.DATE_FORMAT);
                 using (var repository = new PeriodRepository())
                 {
                     var infoLicenseInfo = repository.GetLicenseInfoByIdAndClientId(id, clId);
                     ViewBag.LicenseInfo = infoLicenseInfo;
 
+                    var serializer = new JavaScriptSerializer();
                     var repositoryPeriod = new PeriodRepository(repository.DbConn);
+                    ViewBag.PeriodLic = serializer.Serialize(repositoryPeriod.GetPeriodsByLicenseId(id));
+
+                    ViewBag.LstPeriodTypes = serializer.Serialize(new CatPeriodRepository().FindAll());
                 }
             }
             catch (Exception ex)
@@ -262,6 +310,79 @@ namespace DeliveryReactiveLicensing.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DoPeriod(LicensePeriodsModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid == false)
+                {
+                    return Json(new ResponseMessageModel
+                    {
+                        HasError = true,
+                        Title = ResShared.TITLE_REGISTER_FAILED,
+                        Message = ResShared.ERROR_INVALID_MODEL
+                    });
+                }
+
+                var serializer = new JavaScriptSerializer();
+                var lstPeriods = serializer.Deserialize<List<PeriodModel>>(model.LstPeriodsTx);
+
+                if (lstPeriods.Count == 0)
+                {
+                    return Json(new ResponseMessageModel
+                    {
+                        HasError = true,
+                        Title = ResShared.TITLE_REGISTER_FAILED,
+                        Message = "No existen periodos para agregar a la licencia"
+                    });
+                }
+
+                var lstPeriodsResponse = new List<PeriodResponseModel>();
+                var now = DateTime.Now;
+                var userId = User.Identity.GetUserId();
+                using (var repository = new GenericRepository<LicensePeriod>())
+                {
+                    foreach (var period in lstPeriods)
+                    {
+                        var periodToIns = period.ToModel(model.LicenseId);
+                        periodToIns.InsDateTime = now;
+                        periodToIns.InsUserId = userId;
+                        periodToIns.IsObsolete = false;
+                        periodToIns.IsPayed = false;
+
+                        repository.Add(periodToIns);
+                    
+                        lstPeriodsResponse.Add(new PeriodResponseModel
+                        {
+                            LicensePeriodBeforeId = period.PeriodId,
+                            LicensePeriodId = periodToIns.LicensePeriodId
+                        });
+                    }
+
+
+                    return Json(new ResponseMessageModel
+                    {
+                        HasError = false,
+                        Title = ResShared.TITLE_REGISTER_SUCCESS,
+                        Message = String.Format("Se agregaron {0} periodo(s) a la licencia", lstPeriods.Count),
+                        Data = serializer.Serialize(lstPeriodsResponse) 
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedLogger.LogError(ex, model.LicenseId, model.ClientId);
+                return Json(new ResponseMessageModel
+                {
+                    HasError = true,
+                    Title = ResShared.TITLE_REGISTER_FAILED,
+                    Message = ResShared.ERROR_UNKOWN
+                });
+            }
         }
     }
 }

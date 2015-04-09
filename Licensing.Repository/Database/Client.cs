@@ -33,6 +33,7 @@ namespace Licensing.Repository.Database
         public string UpdUserId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual Country Country { get; set; }
         public virtual ICollection<License> License { get; set; }
     }

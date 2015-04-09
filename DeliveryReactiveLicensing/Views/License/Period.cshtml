@@ -1,0 +1,243 @@
+﻿@{
+    Layout = null;
+}
+
+<script>
+
+    $(document).ready(function () {
+        window.showModalFormDlg("#dlgUpModalId", "#FormCatId");
+
+        //$("#modalConfDlgId").injector().invoke(function ($compile, $rootScope) {
+        //    $compile($("#modalConfDlgId"))($rootScope);
+        //    $rootScope.$apply();
+        //});
+
+        $('#dtStart .input-group.date').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: true,
+            autoclose: true,
+            format: 'mm/dd/yyyy'
+        });
+
+
+    });
+
+</script>
+
+<div class="modal inmodal" id="dlgUpModalId" tabindex="-1" ng-controller="upsertController" role="dialog" aria-hidden="true" ng-cloak>
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <i class="fa fa-power-off modal-icon"></i>
+                <h4 class="modal-title">Periodos de validez de la licencia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="ibox">
+                            <div class="ibox-title navy-bg">
+                                <h5>Periodos para la licencia @ViewBag.LicenseInfo.Name</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="MsgError">
+                    <br />
+                    <div class="col-xs-12">
+                        <div class="alert alert-danger element-center">
+                            {{MsgError}}
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row" ng-show="MsgSuccess">
+                    <br />
+                    <div class="col-xs-12">
+                        <div class="alert alert-success element-center">
+                            {{MsgSuccess}}
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row" ng-controller="periodController">
+                    <div class="col-xs-12">
+                        <form id="FormCatId" name="FormCatId" class="form-horizontal" role="form">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="ClientId" name="ClientId" ng-model="m.ClientId" ng-init="m.ClientId = @ViewBag.LicenseInfo.ClientId;" ng-update-hidden />
+                            <input type="hidden" id="LicenseId" name="LicenseId" ng-model="m.LicenseId" ng-init="m.LicenseId = @ViewBag.LicenseInfo.LicenseId;" ng-update-hidden />
+                            <input type="hidden" id="LstPeriodsTx" name="LstPeriodsTx" ng-model="m.LstPeriodsTx" ng-init="m.lstPeriodsTx = '@ViewBag.PeriodLic'; initPeriods(); " ng-update-hidden />
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div id="dtStart">
+                                        <label class="control-label font-noraml col-xs-5">Fecha inicial</label>
+                                        <div class="input-group date  col-xs-7">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" class="form-control" ng-model="m.StartDate" ng-init="m.StartDate = '@ViewBag.StartDate'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="col-xs-3 control-label font-noraml">Periodo</label>
+                                    <div class="col-xs-9 input-group">
+                                        <select data-placeholder="Elige un periodo" class="form-control" id="chosen-select"
+                                                ng-init="lstPeriodTypes = @ViewBag.LstPeriodTypes;  initCatalog(lstPeriodTypes, m, 'period', 'PeriodTypesId');"
+                                                ng-change="m.PeriodTypesId = m.period.Key;"
+                                                ng-options="c.Name for c in lstPeriodTypes" ng-model="m.period"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-15"></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <label class="col-xs-7 control-label font-noraml">No. de servidores</label>
+                                            <div class="col-xs-5">
+                                                <input type="number" name="ServerNumber" ng-model="m.ServerNumber" min="1" max="10" ng-init="m.ServerNumber = 1;"
+                                                       required="required" class="form-control">
+                                                <span class="error" ng-show="FormCatId.ServerNumber.$error.required">*Campo requerido</span>
+                                                <span class="error" ng-show="FormCatId.ServerNumber.$error.number">*Valor no válido</span>
+                                                <span class="error" ng-show="FormCatId.ServerNumber.$error.max  || FormCatId.ServerNumber.$error.min">*Valor fuera de los límites</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <label class="col-xs-7 control-label font-noraml">No. de PC</label>
+                                            <div class="col-xs-5">
+                                                <input type="number" name="ClientNumber" ng-model="m.ClientNumber" min="1" max="100" ng-init="m.ClientNumber = 5;"
+                                                       required="required" class="form-control">
+                                                <span class="error" ng-show="FormCatId.ClientNumber.$error.required">*Campo requerido</span>
+                                                <span class="error" ng-show="FormCatId.ClientNumber.$error.number">*Valor no válido</span>
+                                                <span class="error" ng-show="FormCatId.ClientNumber.$error.max  || FormCatId.ClientNumber.$error.min">*Valor fuera de los límites</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-15"></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <label class="col-xs-7 control-label font-noraml">No. de periodos</label>
+                                            <div class="col-xs-5">
+                                                <input type="number" name="PeriodNumber" ng-model="m.PeriodNumber" min="1" max="24" ng-init="m.PeriodNumber = 12;"
+                                                       required="required" class="form-control">
+                                                <span class="error" ng-show="FormCatId.PeriodNumber.$error.required">*Campo requerido</span>
+                                                <span class="error" ng-show="FormCatId.PeriodNumber.$error.number">*Valor no válido</span>
+                                                <span class="error" ng-show="FormCatId.PeriodNumber.$error.max  || FormCatId.PeriodNumber.$error.min">*Valor fuera de los límites</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 element-center">
+                                    <button class="btn btn-success" ng-click="addPeriods()">
+                                        <i class="fa fa-plus"></i>
+                                        &nbsp;Agregar
+                                    </button>
+                                </div>
+                                <div class="col-xs-3 element-center">
+                                    <button class="btn btn-primary " ng-disabled="WaitFor==true"
+                                            ng-click="trySubmit('#FormCatId', '@Url.Action("DoPeriod", "License")', '#dlgUpModalId', 2)">
+                                        <i class="fa fa-save"></i>
+                                        &nbsp;Guardar
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="MsgErrorIn">
+                                <br />
+                                <div class="col-xs-12">
+                                    <div class="alert alert-danger element-center">
+                                        {{MsgErrorIn}}
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="space-25"></div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>Periodos de uso de la licencia</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <table class="table table-hover no-margins">
+                                        <thead>
+                                            <tr>
+                                                <th class="element-center">Pago</th>
+                                                <th class="element-center">Fecha inicial</th>
+                                                <th class="element-center">Fecha final</th>
+                                                <th class="element-center"># servidores</th>
+                                                <th class="element-center"># PC</th>
+                                                <th class="element-center">Activación</th>
+                                                <th class="element-center">Fecha creación</th>
+                                                <th class="element-center">Usuario</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="period in lstPeriods | orderBy:'-DateStartTx' ">
+                                                <td class="element-center">
+                                                    <div ng-if="period.IsPayed === false">
+                                                        <span class="badge badge-warning"><i class="fa fa-times"></i> Sin pago</span>
+                                                    </div>
+                                                    <div ng-if="period.IsPayed === true">
+                                                        <span class="badge badge-info"><i class="fa fa-check"></i> Pagado</span>
+                                                    </div>
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.DateStartTx}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.DateEndTx}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.ServerNumber}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.ClientNumber}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.Activation}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.InsDateTime}}
+                                                </td>
+                                                <td class="element-center">
+                                                    {{period.InsUserName}}
+                                                </td>
+                                                <td class="element-center">
+                                                    <div ng-if="period.LicensePeriodId > 0">
+                                                        <a href="javascript:;" style="display:inline-block;" title="Marcar como periodo ya pagado"
+                                                           ng-click="payPeriod(period.LicensePeriodId, period.DateStartTx, period.DateEndTx, '#modalConfDlgId', '@Url.Action("DoPayment", "License")')">
+                                                            <i class="fa fa-money icon-grid-st blue-light"></i>
+                                                        </a>
+                                                        &nbsp;<a href="javascript:;" style="display:inline-block;" title="Eliminar periodo"
+                                                                 ng-click="deletePeriod(period.LicensePeriodId, '#modalConfDlgId', '@Url.Action("DoObsolete", "License")')"><i class="fa fa-trash icon-grid-st red"></i></a>
+                                                    </div>
+                                                    <div ng-if="period.LicensePeriodId <= 0">
+                                                        <a href="javascript:;" style="display:inline-block;" title="Eliminar periodo"
+                                                           ng-click="deletePeriod(period.LicensePeriodId, '#modalConfDlgId', '@Url.Action("DoObsolete", "License")')"><i class="fa fa-trash icon-grid-st red"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-white" ng-click="cancel()">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

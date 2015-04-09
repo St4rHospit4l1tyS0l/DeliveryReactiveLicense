@@ -36,6 +36,7 @@ namespace Licensing.Repository.Database
         public string DelUserId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual CatPeriod CatPeriod { get; set; }
         public virtual ICollection<ComputerClient> ComputerClient { get; set; }
         public virtual ICollection<ComputerServer> ComputerServer { get; set; }

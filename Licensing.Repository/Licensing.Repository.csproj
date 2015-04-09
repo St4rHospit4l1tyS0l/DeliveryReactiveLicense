@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\CatPeriodRepository.cs" />
     <Compile Include="Catalog\CountryRepository.cs" />
     <Compile Include="Database\AspNetRoles.cs">
       <DependentUpon>Licensing.tt</DependentUpon>
@@ -123,6 +124,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Logger.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Database\Metadata\LicensePeriodExt.cs" />
     <Compile Include="Database\Metadata\ViewLicenseGridJson.cs" />
     <Compile Include="Database\Metadata\ViewClientGridJson.cs" />
     <Compile Include="Database\ViewClientGrid.cs">

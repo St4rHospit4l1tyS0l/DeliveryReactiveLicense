@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
+﻿using System.Dynamic;
 using System.Linq;
 using Infrastructure.Extensions;
 using Licensing.Model.Management;

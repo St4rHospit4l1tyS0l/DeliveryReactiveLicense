@@ -37,9 +37,9 @@
         return def.promise;
     };
 
-    $scope.doConfirm = function (data, urlToGo, innerScp) {
+    $scope.doConfirm = function (data, urlToGo, title, msg, innerScp) {
         var def = $q.defer();
-        sharedSvc.showConf({ Title: "Confirmación de Servicio", Message: "¿Está seguro que desea de confirmar el uso del servicio?", Type: "warning" }).
+        sharedSvc.showConf({ Title: title, Message: msg, Type: "warning" }).
             then(function () {
                 $scope.doPost(data, urlToGo, def, innerScp);
             }, def.reject);

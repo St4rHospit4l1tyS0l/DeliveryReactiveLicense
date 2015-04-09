@@ -1,26 +1,70 @@
-﻿app.controller('upsertController', function ($scope, $rootScope) {
+﻿app.controller('upsertController', function ($scope, $rootScope, $timeout) {
     $scope.WaitFor = false;
     $scope.MsgError = "";
     $scope.Model = {};
 
-    $scope.submit = function (formId, urlToPost, hasReturnId) {
+    $scope.setError = function (msg) {
+        $scope.MsgError = msg;
+        $timeout(function () {
+            $scope.MsgError = "";
+        }, 8000);
+    };
+
+    $scope.setSuccess = function (msg) {
+        $scope.MsgSuccess = msg;
+        $timeout(function () {
+            $scope.MsgSuccess = "";
+        }, 8000);
+    };
+
+    $scope.submit = function (formId, urlToPost, typeReturn) {
+        $scope.MsgError = "";
+        $scope.MsgSuccess = "";
+
         if ($(formId).valid() == false) {
             $scope.Invalid = true;
             return false;
         }
         $scope.WaitFor = true;
 
-        if (hasReturnId === true) {
-            $.post(urlToPost, $(formId).serialize())
-                .success($scope.handleSuccessWithId)
+        switch (typeReturn) {
+            case 1:
+                $.post(urlToPost, $(formId).serialize())
+                    .success($scope.handleSuccessWithId)
+                    .error($scope.handleError);
+                break;
+            case 2:
+                $.post(urlToPost, $(formId).serialize())
+                    .success($scope.handleSuccessWithOutClose)
+                    .error($scope.handleError);
+                break;
+            default:
+                $.post(urlToPost, $(formId).serialize())
+                    .success($scope.handleSuccess)
                 .error($scope.handleError);
+                break;
         }
-        else {
-            $.post(urlToPost, $(formId).serialize())
-                .success($scope.handleSuccess)
-                .error($scope.handleError);
-        }
+
         return true;
+    };
+
+
+    $scope.handleSuccessWithOutClose = function (res) {
+        $scope.WaitFor = false;
+
+        try {
+            if (res.HasError === false) {
+                $scope.setSuccess(res.Message);
+                $rootScope.$broadcast("onSuccessRes", res);
+                return;
+            }
+
+            $scope.setError(res.Message);
+            $scope.$apply();
+
+        } catch (e) {
+            $scope.setError("Error inesperado de datos. Por favor intente más tarde.");
+        }
     };
 
     $scope.handleSuccessWithId = function (resp) {
@@ -34,11 +78,11 @@
                 return;
             }
 
-            $scope.MsgError = resp.Message;
+            $scope.setError(resp.Message);
             $scope.$apply();
 
         } catch (e) {
-            $scope.MsgError = "Error inesperado de datos. Por favor intente más tarde.";
+            $scope.setError("Error inesperado de datos. Por favor intente más tarde.");
         }
     };
 
@@ -53,17 +97,17 @@
                 return;
             }
 
-            $scope.MsgError = resp.Message;
+            $scope.setError(resp.Message);
             $scope.$apply();
 
         } catch (e) {
-            $scope.MsgError = "Error inesperado de datos. Por favor intente más tarde.";
+            $scope.setError("Error inesperado de datos. Por favor intente más tarde.");
         }
     };
 
     $scope.handleError = function () {
         $scope.WaitFor = false;
-        $scope.MsgError = "Error de red. Por favor intente más tarde.";
+        $scope.setError("Error de red. Por favor intente más tarde.");
         $scope.$apply();
     };
 

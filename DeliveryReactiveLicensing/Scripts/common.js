@@ -12,10 +12,17 @@ window.showUpsert = function (id, divScope, urlToGo, jqGridToUse) {
 
 };
 
-window.showConfirmService = function (id, divScope, urlToGo, jqGridToUse) {
+window.showConfirmService = function (id, divScope, urlToGo, title, msg, callback, jqGridToUse) {
     var scope = angular.element($(divScope)).scope();
-    scope.doConfirm({ id: id }, urlToGo).
-        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+    scope.doConfirm({ id: id }, urlToGo, title, msg).
+        then(function () {
+            if (jqGridToUse !== undefined)
+                $(jqGridToUse).trigger("reloadGrid");
+
+            if (callback !== undefined) {
+                callback();
+            }
+        });
 };
 
 
@@ -25,10 +32,16 @@ window.showConfirmCancelDocument = function (id, folio, divScope, urlToGo, jqGri
         then(function () { $(jqGridToUse).trigger("reloadGrid"); });
 };
 
-window.showObsolete = function (id, divScope, urlToGo, jqGridToUse) {
+window.showObsolete = function (id, divScope, urlToGo, callback, jqGridToUse) {
     var scope = angular.element($(divScope)).scope();
     scope.doObsolete({ id: id }, urlToGo).
-        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+        then(function () {
+            if (jqGridToUse !== undefined)
+                $(jqGridToUse).trigger("reloadGrid");
+            if (callback !== undefined) {
+                callback();
+            }
+        });
 };
 
 window.showModalFormDlg = function(divModalid, formId) {
@@ -60,7 +73,25 @@ window.goToUrlMvcUrl = function (url, params) {
     }
 };
 
-window.sendPostAction = function (id, divScope, urlToGo, innerScp, showSuccess) {
+window.sendPostAction = function(id, divScope, urlToGo, innerScp, showSuccess) {
     var scope = angular.element($(divScope)).scope();
     scope.sendPostAction({ id: id }, urlToGo, innerScp, showSuccess);
-}
+};
+
+window.padNum = function(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+};
+
+window.formatDt = function (dt) {
+    return window.padNum(dt.getMonth() + 1, 2) + "/" + window.padNum(dt.getDate(), 2) + "/" + dt.getFullYear();
+};
+
+window.formatDtA = function (dt) {
+    return dt.getFullYear() + "/" + window.padNum(dt.getMonth() + 1, 2) + "/" + window.padNum(dt.getDate(), 2);
+};
+
+Array.prototype.pushArray = function (arr) {
+    this.push.apply(this, arr);
+};

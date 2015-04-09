@@ -135,7 +135,7 @@ namespace DeliveryReactiveLicensing.Controllers
                     {
                         return Json(new ResponseMessageModel
                         {
-                            HasError = false,
+                            HasError = true,
                             Title = ResShared.TITLE_OBSOLETE_FAILED,
                             Message = ResShared.ERROR_MODEL_NOTFOUND
                         });

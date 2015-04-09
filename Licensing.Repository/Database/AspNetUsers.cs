@@ -19,8 +19,12 @@ namespace Licensing.Repository.Database
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.Client = new HashSet<Client>();
+            this.Client1 = new HashSet<Client>();
             this.License = new HashSet<License>();
+            this.License1 = new HashSet<License>();
+            this.License2 = new HashSet<License>();
             this.LicensePeriod = new HashSet<LicensePeriod>();
+            this.LicensePeriod1 = new HashSet<LicensePeriod>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
         }
     
@@ -40,8 +44,12 @@ namespace Licensing.Repository.Database
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<Client> Client { get; set; }
+        public virtual ICollection<Client> Client1 { get; set; }
         public virtual ICollection<License> License { get; set; }
+        public virtual ICollection<License> License1 { get; set; }
+        public virtual ICollection<License> License2 { get; set; }
         public virtual ICollection<LicensePeriod> LicensePeriod { get; set; }
+        public virtual ICollection<LicensePeriod> LicensePeriod1 { get; set; }
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
     }
 }

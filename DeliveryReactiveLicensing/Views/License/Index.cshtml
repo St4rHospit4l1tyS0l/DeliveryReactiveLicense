@@ -12,6 +12,10 @@
     </div>
 </div>
 
+
+<div class="wrapper wrapper-content  animated fadeInRight" id="modalConfDlgId" ng-controller="modalDlgController">
+</div>
+
 <div class="wrapper wrapper-content  animated fadeInRight" id="angJsjqGridId" ng-controller="modalDlgController">
     <div class="row">
         <div class="col-xs-3">
@@ -71,7 +75,8 @@
     <script src="~/Scripts/app/shared/upsertCtrl.js"></script>
     <script src="~/Scripts/app/shared/modalDlgCtrl.js"></script>
     <script src="~/Scripts/app/shared/hiddenDrct.js"></script>
-    <script src="~/Scripts/app/ctrl/clientCtrl.js"></script>
+    <script src="~/Scripts/app/ctrl/licenseCtrl.js"></script>
+    <script src="~/Scripts/app/ctrl/periodCtrl.js"></script>
     <script src="~/Scripts/js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="~/Scripts/js/plugins/chosen/chosen.jquery.js"></script>
     <script src="~/Scripts/js/plugins/iCheck/icheck.min.js"></script>
@@ -141,7 +146,7 @@
                         var be = "";
 
                         be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Editar licencia\" onclick=\"window.upsert('" + cl + "');\"><i class=\"fa fa-pencil icon-grid-st blue-light\"></i></a>&nbsp;&nbsp;";
-                        be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Administrar periodos de pago de la licencia\" onclick=\"window.licensePeriod('" + cl + "');\"><i class=\"fa fa-money icon-grid-st yellowgreen\"></i></a>  ";
+                        be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Administrar periodos de pago de la licencia\" onclick=\"window.licensePeriod('" + cl + "');\"><i class=\"fa fa-list-alt icon-grid-st blue-light\"></i></a>  ";
                         be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Descargar código de activación\" onclick=\"window.downloadCode('" + cl + "');\"><i class=\"fa fa-cloud-download icon-grid-st blue-light\"></i></a>  ";
                         be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Enviar por correo electrónico el código de activación\" onclick=\"window.sendEmail('" + cl + "');\"><i class=\"fa fa-envelope icon-grid-st orange\"></i></a>  ";
                         be += "<a href=\"javascript:;\" style=\"display:inline-block;\" title=\"Eliminar licencia\" onclick=\"window.obsolete('" + cl + "');\"><i class=\"fa fa-trash icon-grid-st red\"></i></a>";

@@ -6,7 +6,6 @@ namespace Licensing.Model.Management
 {
     public class LicenseModel
     {
-
         public int LicenseId { get; set; }
         
         [Required]

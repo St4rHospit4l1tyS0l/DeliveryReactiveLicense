@@ -34,6 +34,8 @@ namespace Licensing.Repository.Database
         public string DelUserId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public virtual AspNetUsers AspNetUsers2 { get; set; }
         public virtual Client Client { get; set; }
         public virtual ICollection<LicensePeriod> LicensePeriod { get; set; }
     }

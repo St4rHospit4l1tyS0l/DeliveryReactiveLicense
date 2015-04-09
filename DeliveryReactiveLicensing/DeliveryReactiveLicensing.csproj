@@ -351,6 +351,8 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\app\ctrl\licenseCtrl.js" />
+    <Content Include="Scripts\app\ctrl\periodCtrl.js" />
     <Content Include="Scripts\app\ctrl\clientCtrl.js" />
     <Content Include="Scripts\app\drct\sharedDrct.js" />
     <Content Include="Scripts\app\shared\hiddenDrct.js" />
@@ -912,6 +914,7 @@
     <Content Include="Views\Shared\_SharedServices.cshtml" />
     <Content Include="Views\License\Index.cshtml" />
     <Content Include="Views\License\Upsert.cshtml" />
+    <Content Include="Views\License\Period.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -942,6 +945,7 @@
     <EmbeddedResource Include="Resources\ResShared.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResShared.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

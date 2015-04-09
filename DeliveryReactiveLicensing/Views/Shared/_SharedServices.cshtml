@@ -2,17 +2,39 @@
 <script>
     app.service('sharedSvc', function ($timeout, $q) {
 
+        this.initCatalog = function (lstCatalog, m, keyItem, keyId) {
+            var item = lstCatalog[0];
+            
+            if(m[keyId] !== undefined && m[keyId] > 0) {
+                item = undefined;
+                for (var i = 0; i < lstCatalog.length; i++) {
+                    var itemCat = lstCatalog[i];
+                    if (itemCat.Key === m[keyId]) {
+                        item = itemCat;
+                        break;
+                    }
+                }
+
+                if (item === undefined) {
+                    item = lstCatalog[0];
+                }
+            }
+
+            m[keyId] = item.Key;
+            m[keyItem] = item;
+        };
+
         //Dialogo para la espera de algún evento
         var dlgProcessing = $('#ProcessingDlgId');
         var th = this;
         this.cfgProc = { toProcessing: undefined, procCount: 0 };
 
-        this.onProcTimeOut = function () {
+        this.onProcTimeOut = function() {
             th.cfgProc.procCount++;
             if (th.cfgProc.procCount > 100)
                 th.cfgProc.procCount = 0;
             th.cfgProc.toProcessing = $timeout(th.onProcTimeOut, 150);
-        }
+        };
 
         this.showProcessing = function () {
             dlgProcessing.modal('show');

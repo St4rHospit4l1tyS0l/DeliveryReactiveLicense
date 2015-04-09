@@ -42,6 +42,9 @@
   <ItemGroup>
     <Compile Include="Management\LicenseModel.cs" />
     <Compile Include="Management\ClientModel.cs" />
+    <Compile Include="Management\LicensePeriodsModel.cs" />
+    <Compile Include="Management\PeriodModel.cs" />
+    <Compile Include="Management\PeriodResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\ItemModel.cs" />
     <Compile Include="Shared\ResponseMsg.cs" />

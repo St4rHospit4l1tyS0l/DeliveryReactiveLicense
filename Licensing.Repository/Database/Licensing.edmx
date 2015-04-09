@@ -134,7 +134,7 @@
           <Key>
             <PropertyRef Name="LicensePeriodId" />
           </Key>
-          <Property Name="LicensePeriodId" Type="int" Nullable="false" />
+          <Property Name="LicensePeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LicenseId" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="CatPeriodId" Type="int" Nullable="false" />
@@ -198,6 +198,18 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Principal>
             <Dependent Role="Client">
               <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UpdUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,6 +317,30 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_License_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="License" Type="Self.License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="UpdUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_AspNetUsers2">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="License" Type="Self.License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="DelUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_License_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="License" Type="Self.License" Multiplicity="*" />
@@ -326,6 +362,18 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Principal>
             <Dependent Role="LicensePeriod">
               <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="LicensePeriod" Type="Self.LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="DelUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -393,6 +441,10 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
+          <AssociationSet Name="FK_Client_AspNetUsers1" Association="Self.FK_Client_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_Country" Association="Self.FK_Client_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Client" EntitySet="Client" />
@@ -425,11 +477,23 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="License" EntitySet="License" />
           </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers1" Association="Self.FK_License_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers2" Association="Self.FK_License_AspNetUsers2">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
           <AssociationSet Name="FK_License_Client" Association="Self.FK_License_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="License" EntitySet="License" />
           </AssociationSet>
           <AssociationSet Name="FK_LicensePeriod_AspNetUsers" Association="Self.FK_LicensePeriod_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_AspNetUsers1" Association="Self.FK_LicensePeriod_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LicensePeriod" EntitySet="LicensePeriod" />
           </AssociationSet>
@@ -458,6 +522,8 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <EntitySet Name="Country" EntityType="LicenseCallCenterModel.Country" />
           <EntitySet Name="License" EntityType="LicenseCallCenterModel.License" />
           <EntitySet Name="LicensePeriod" EntityType="LicenseCallCenterModel.LicensePeriod" />
+          <EntitySet Name="ViewClientGrid" EntityType="LicenseCallCenterModel.ViewClientGrid" />
+          <EntitySet Name="ViewLicenseGrid" EntityType="LicenseCallCenterModel.ViewLicenseGrid" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="LicenseCallCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -470,11 +536,27 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
+          <AssociationSet Name="FK_Client_AspNetUsers1" Association="LicenseCallCenterModel.FK_Client_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_License_AspNetUsers" Association="LicenseCallCenterModel.FK_License_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="License" EntitySet="License" />
           </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers1" Association="LicenseCallCenterModel.FK_License_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
+          <AssociationSet Name="FK_License_AspNetUsers2" Association="LicenseCallCenterModel.FK_License_AspNetUsers2">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="License" EntitySet="License" />
+          </AssociationSet>
           <AssociationSet Name="FK_LicensePeriod_AspNetUsers" Association="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LicensePeriod" EntitySet="LicensePeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LicensePeriod_AspNetUsers1" Association="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LicensePeriod" EntitySet="LicensePeriod" />
           </AssociationSet>
@@ -506,8 +588,6 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="ViewClientGrid" EntityType="LicenseCallCenterModel.ViewClientGrid" />
-          <EntitySet Name="ViewLicenseGrid" EntityType="LicenseCallCenterModel.ViewLicenseGrid" />
         </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -557,8 +637,12 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <NavigationProperty Name="AspNetUserClaims" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="LicenseCallCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="Client" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers" FromRole="AspNetUsers" ToRole="Client" />
+          <NavigationProperty Name="Client1" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers1" FromRole="AspNetUsers" ToRole="Client" />
           <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers" FromRole="AspNetUsers" ToRole="License" />
+          <NavigationProperty Name="License1" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers1" FromRole="AspNetUsers" ToRole="License" />
+          <NavigationProperty Name="License2" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers2" FromRole="AspNetUsers" ToRole="License" />
           <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers" FromRole="AspNetUsers" ToRole="LicensePeriod" />
+          <NavigationProperty Name="LicensePeriod1" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers1" FromRole="AspNetUsers" ToRole="LicensePeriod" />
           <NavigationProperty Name="AspNetRoles" Relationship="LicenseCallCenterModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="CatPeriod">
@@ -587,6 +671,7 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <Property Name="UpdDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers" FromRole="Client" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="LicenseCallCenterModel.FK_Client_AspNetUsers1" FromRole="Client" ToRole="AspNetUsers" />
           <NavigationProperty Name="Country" Relationship="LicenseCallCenterModel.FK_Client_Country" FromRole="Client" ToRole="Country" />
           <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_License_Client" FromRole="Client" ToRole="License" />
         </EntityType>
@@ -642,6 +727,8 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <Property Name="DelDateTime" Type="DateTime" Precision="3" />
           <Property Name="DelUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers" FromRole="License" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers1" FromRole="License" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers2" Relationship="LicenseCallCenterModel.FK_License_AspNetUsers2" FromRole="License" ToRole="AspNetUsers" />
           <NavigationProperty Name="Client" Relationship="LicenseCallCenterModel.FK_License_Client" FromRole="License" ToRole="Client" />
           <NavigationProperty Name="LicensePeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_License" FromRole="License" ToRole="LicensePeriod" />
         </EntityType>
@@ -649,7 +736,7 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <Key>
             <PropertyRef Name="LicensePeriodId" />
           </Key>
-          <Property Name="LicensePeriodId" Type="Int32" Nullable="false" />
+          <Property Name="LicensePeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LicenseId" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CatPeriodId" Type="Int32" Nullable="false" />
@@ -664,10 +751,47 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <Property Name="DelDateTime" Type="DateTime" Precision="3" />
           <Property Name="DelUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers" FromRole="LicensePeriod" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers1" FromRole="LicensePeriod" ToRole="AspNetUsers" />
           <NavigationProperty Name="CatPeriod" Relationship="LicenseCallCenterModel.FK_LicensePeriod_CatPeriod" FromRole="LicensePeriod" ToRole="CatPeriod" />
           <NavigationProperty Name="ComputerClient" Relationship="LicenseCallCenterModel.FK_ComputerClient_LicensePeriod" FromRole="LicensePeriod" ToRole="ComputerClient" />
           <NavigationProperty Name="ComputerServer" Relationship="LicenseCallCenterModel.FK_ComputerServer_LicensePeriod" FromRole="LicensePeriod" ToRole="ComputerServer" />
           <NavigationProperty Name="License" Relationship="LicenseCallCenterModel.FK_LicensePeriod_License" FromRole="LicensePeriod" ToRole="License" />
+        </EntityType>
+        <EntityType Name="ViewClientGrid">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Company" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="CountryName" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewLicenseGrid">
+          <Key>
+            <PropertyRef Name="LicenseId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="IsObsolete" />
+            <PropertyRef Name="InsDateTime" />
+            <PropertyRef Name="InsUserName" />
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="LicenseId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsUserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -709,6 +833,18 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Client_AspNetUsers1">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="LicenseCallCenterModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UpdUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_License_AspNetUsers">
           <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="*" />
@@ -721,6 +857,30 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_License_AspNetUsers1">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="UpdUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_License_AspNetUsers2">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="LicenseCallCenterModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="DelUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LicensePeriod_AspNetUsers">
           <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="*" />
@@ -730,6 +890,18 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
             </Principal>
             <Dependent Role="LicensePeriod">
               <PropertyRef Name="InsUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LicensePeriod_AspNetUsers1">
+          <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="LicenseCallCenterModel.LicensePeriod" Role="LicensePeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LicensePeriod">
+              <PropertyRef Name="DelUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -809,42 +981,6 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
           <End Type="LicenseCallCenterModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="LicenseCallCenterModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="ViewClientGrid">
-          <Key>
-            <PropertyRef Name="ClientId" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
-            <PropertyRef Name="Company" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="CountryName" />
-          </Key>
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FullAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ViewLicenseGrid">
-          <Key>
-            <PropertyRef Name="LicenseId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="IsActive" />
-            <PropertyRef Name="IsObsolete" />
-            <PropertyRef Name="InsDateTime" />
-            <PropertyRef Name="InsUserName" />
-            <PropertyRef Name="ClientId" />
-          </Key>
-          <Property Name="LicenseId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
-          <Property Name="InsDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="InsUserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -996,14 +1132,6 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="LicenseCallCenterModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="ViewClientGrid">
             <EntityTypeMapping TypeName="LicenseCallCenterModel.ViewClientGrid">
               <MappingFragment StoreEntitySet="ViewClientGrid">
@@ -1031,6 +1159,14 @@ warning 6002: The table/view 'LicenseCallCenter.dbo.ViewLicenseGrid' does not ha
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="LicenseCallCenterModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
