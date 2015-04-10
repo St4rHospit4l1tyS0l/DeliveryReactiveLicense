@@ -52,7 +52,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DeliveryReactiveLicensing\DeliveryReactiveLicensing.csproj">
+      <Project>{19915B63-AA44-4172-B741-BF49469ECAE0}</Project>
+      <Name>DeliveryReactiveLicensing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{df8bc680-27b2-46a9-b7a2-8ad786dbc5e0}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Licensing.Model\Licensing.Model.csproj">
+      <Project>{9904F1FC-B65A-4C28-85F6-943A1AC36A6D}</Project>
+      <Name>Licensing.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Licensing.Repository\Licensing.Repository.csproj">
+      <Project>{6B600290-7B0F-4552-BA29-A5188A934303}</Project>
+      <Name>Licensing.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

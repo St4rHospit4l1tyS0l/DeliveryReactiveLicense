@@ -31,12 +31,12 @@ namespace Licensing.Repository.Database
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CatPeriod> CatPeriod { get; set; }
         public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<ComputerClient> ComputerClient { get; set; }
-        public virtual DbSet<ComputerServer> ComputerServer { get; set; }
         public virtual DbSet<Country> Country { get; set; }
-        public virtual DbSet<License> License { get; set; }
         public virtual DbSet<LicensePeriod> LicensePeriod { get; set; }
         public virtual DbSet<ViewClientGrid> ViewClientGrid { get; set; }
         public virtual DbSet<ViewLicenseGrid> ViewLicenseGrid { get; set; }
+        public virtual DbSet<ComputerClient> ComputerClient { get; set; }
+        public virtual DbSet<ComputerServer> ComputerServer { get; set; }
+        public virtual DbSet<License> License { get; set; }
     }
 }

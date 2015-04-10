@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="Catalog\CatPeriodRepository.cs" />
     <Compile Include="Catalog\CountryRepository.cs" />
+    <Compile Include="Database\ActivationLog.cs">
+      <DependentUpon>Logger.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\AspNetRoles.cs">
       <DependentUpon>Licensing.tt</DependentUpon>
     </Compile>

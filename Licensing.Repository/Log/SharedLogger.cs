@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
 using System.Web.Script.Serialization;
+using Infrastructure.Connection;
+using Licensing.Model.Communication;
 using Licensing.Repository.Database;
 using Licensing.Repository.Resources;
 using log4net;
@@ -11,6 +13,7 @@ namespace Licensing.Repository.Log
 {
     public class SharedLogger
     {
+
 
         public static void LogError(Exception ex, params object[] arrVal)
         {
@@ -31,6 +34,25 @@ namespace Licensing.Repository.Log
             catch (Exception)
             {
                 return;
+            }
+        }
+
+        public static void LogActivation(string activationInfo)
+        {
+            try
+            {
+                using (var dbConn = new LogLicenseEntities())
+                {
+                    dbConn.ActivationLog.Add(new ActivationLog
+                    {
+                        ActivationInfo = activationInfo + AccountConstants.SEPARATOR_INFO + IpAddress.GetIp()
+                    });
+                    dbConn.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                SaveLogToFile(activationInfo);
             }
         }
 
@@ -55,6 +77,19 @@ namespace Licensing.Repository.Log
             try
             {
                 LogManager.GetLogger("ERROR_LOGGER").Fatal(GetSerializedValue(exceptionLog));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+
+        private static void SaveLogToFile(String activationInfo)
+        {
+            try
+            {
+                LogManager.GetLogger("INFO_ACTIVATION").Fatal(activationInfo);
             }
             catch (Exception)
             {

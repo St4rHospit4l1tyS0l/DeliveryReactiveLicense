@@ -47,7 +47,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -81,6 +83,10 @@
   <ItemGroup>
     <Compile Include="Annotations\ValidDateIntegerAttribute.cs" />
     <Compile Include="Annotations\MinMaxIntegerAttribute.cs" />
+    <Compile Include="Connection\IpAddress.cs" />
+    <Compile Include="Crypto\CryptoConstants.cs" />
+    <Compile Include="Crypto\Cypher.cs" />
+    <Compile Include="Crypto\HashMd5.cs" />
     <Compile Include="Email\EmailService.cs" />
     <Compile Include="Extensions\BooleanExt.cs" />
     <Compile Include="Extensions\ExpandoExt.cs" />
@@ -92,6 +98,7 @@
     <Compile Include="JqGrid\Model\JqGridResultModel.cs" />
     <Compile Include="JqGrid\Model\JqGridMultipleFilterModel.cs" />
     <Compile Include="JqGrid\Model\JqGridFilterModel.cs" />
+    <Compile Include="Json\JavaScriptSerializerExt.cs" />
     <Compile Include="Models\ResponseMessageModel.cs" />
     <Compile Include="Models\SharedConstants.cs" />
     <Compile Include="Mvc\Extensions\AntiforgeryKeyHelper.cs" />

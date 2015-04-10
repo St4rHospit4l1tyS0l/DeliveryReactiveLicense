@@ -23,7 +23,6 @@ namespace Licensing.Repository.Database
         public string Name { get; set; }
         public int ClientId { get; set; }
         public string ActivationCode { get; set; }
-        public string LicenseCode { get; set; }
         public bool IsActive { get; set; }
         public bool IsObsolete { get; set; }
         public System.DateTime InsDateTime { get; set; }

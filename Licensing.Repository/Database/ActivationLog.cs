@@ -12,15 +12,10 @@ namespace Licensing.Repository.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ComputerClient
+    public partial class ActivationLog
     {
-        public int ComputerClientId { get; set; }
-        public int LicensePeriodId { get; set; }
-        public string HardwareId { get; set; }
-        public string ClientHost { get; set; }
-        public bool IsObsolete { get; set; }
-        public string ActivationLog { get; set; }
-    
-        public virtual LicensePeriod LicensePeriod { get; set; }
+        public long ActivationLogId { get; set; }
+        public string ActivationInfo { get; set; }
+        public System.DateTime Timestamp { get; set; }
     }
 }

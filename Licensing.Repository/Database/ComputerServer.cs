@@ -19,7 +19,7 @@ namespace Licensing.Repository.Database
         public string HardwareId { get; set; }
         public string ServerName { get; set; }
         public bool IsObsolete { get; set; }
-        public Nullable<System.DateTime> TimestampActivation { get; set; }
+        public string ActivationLog { get; set; }
     
         public virtual LicensePeriod LicensePeriod { get; set; }
     }

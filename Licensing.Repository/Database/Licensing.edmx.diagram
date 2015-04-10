@@ -11,10 +11,7 @@
         <EntityTypeShape EntityType="LicenseCallCenterModel.AspNetUsers" Width="1.5" PointX="3" PointY="4.125" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.CatPeriod" Width="1.5" PointX="7.5" PointY="9.875" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.Client" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="LicenseCallCenterModel.ComputerClient" Width="1.5" PointX="12" PointY="7.125" />
-        <EntityTypeShape EntityType="LicenseCallCenterModel.ComputerServer" Width="1.5" PointX="12" PointY="4" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.Country" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="LicenseCallCenterModel.License" Width="1.5" PointX="7.5" PointY="4.25" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.LicensePeriod" Width="1.5" PointX="9.75" PointY="4.25" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.ViewClientGrid" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="LicenseCallCenterModel.ViewLicenseGrid" Width="1.5" PointX="9.75" PointY="0.75" />
@@ -22,18 +19,21 @@
         <AssociationConnector Association="LicenseCallCenterModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_Client_AspNetUsers" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_Client_AspNetUsers1" />
-        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers" />
-        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers1" />
-        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers2" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_LicensePeriod_AspNetUsers1" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_LicensePeriod_CatPeriod" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_Client_Country" />
-        <AssociationConnector Association="LicenseCallCenterModel.FK_License_Client" />
+        <AssociationConnector Association="LicenseCallCenterModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="LicenseCallCenterModel.ComputerClient" Width="1.5" PointX="12" PointY="7" />
+        <EntityTypeShape EntityType="LicenseCallCenterModel.ComputerServer" Width="1.5" PointX="12" PointY="4" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_ComputerClient_LicensePeriod" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_ComputerServer_LicensePeriod" />
+        <EntityTypeShape EntityType="LicenseCallCenterModel.License" Width="1.5" PointX="7.5" PointY="4.375" />
+        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers" />
+        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers1" />
+        <AssociationConnector Association="LicenseCallCenterModel.FK_License_AspNetUsers2" />
+        <AssociationConnector Association="LicenseCallCenterModel.FK_License_Client" />
         <AssociationConnector Association="LicenseCallCenterModel.FK_LicensePeriod_License" />
-        <AssociationConnector Association="LicenseCallCenterModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\ActivationCodeModel.cs" />
+    <Compile Include="Communication\AccountConstants.cs" />
+    <Compile Include="Communication\ConnectionInfoModel.cs" />
+    <Compile Include="Communication\DeviceConnModel.cs" />
+    <Compile Include="Communication\HardwareInfoModel.cs" />
+    <Compile Include="Communication\ResponseConnection.cs" />
     <Compile Include="Management\LicenseModel.cs" />
     <Compile Include="Management\ClientModel.cs" />
     <Compile Include="Management\LicensePeriodsModel.cs" />

@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5c5355e8320e485aa5fa67a9474b69bf" Name="Diagram1">
         <EntityTypeShape EntityType="LogLicenseModel.ExceptionLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogLicenseModel.ActivationLog" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

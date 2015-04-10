@@ -26,5 +26,6 @@ namespace Licensing.Repository.Database
         }
     
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
+        public virtual DbSet<ActivationLog> ActivationLog { get; set; }
     }
 }
