@@ -159,7 +159,7 @@ namespace DeliveryReactiveLicensing.Controllers
             }
         }
 
-        // 99630110@..Lc
+        // 99630110Lc@..
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()

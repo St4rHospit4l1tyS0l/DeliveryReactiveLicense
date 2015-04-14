@@ -146,8 +146,17 @@ namespace DeliveryReactiveLicensing.Service.License
 
         private string AddDeviceIfValid(ConnectionInfoModel model, LicensePeriod period, LicenseRepository repository, bool bIsServer)
         {
-            if (period.ServerNumber - repository.ServerCount(period.LicensePeriodId) <= 0)
-                return null;
+            if (bIsServer)
+            {
+                if (period.ServerNumber - repository.ServerCount(period.LicensePeriodId) <= 0)
+                    return null;
+            }
+            else
+            {
+                if (period.ClientNumber - repository.ClientCount(period.LicensePeriodId) <= 0)
+                    return null;
+            }
+
 
             model.Code = AccountConstants.CODE_VALID;
             model.Et = period.EndDate;

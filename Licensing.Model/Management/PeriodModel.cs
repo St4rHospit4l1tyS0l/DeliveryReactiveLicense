@@ -6,7 +6,7 @@ namespace Licensing.Model.Management
 {
     public class PeriodModel
     {
-        public int PeriodId { get; set; }
+        public int LicensePeriodId { get; set; }
         public string DateStartTx { get; set; }
         public string DateEndTx { get; set; }
         public int ServerNumber { get; set; }

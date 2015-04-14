@@ -45,14 +45,15 @@ namespace Licensing.Repository.Log
                 {
                     dbConn.ActivationLog.Add(new ActivationLog
                     {
-                        ActivationInfo = activationInfo + AccountConstants.SEPARATOR_INFO + IpAddress.GetIp()
+                        ActivationInfo = activationInfo + AccountConstants.SEPARATOR_INFO + IpAddress.GetIp(),
+                        Timestamp = DateTime.Now
                     });
                     dbConn.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                SaveLogToFile(activationInfo);
+                SaveLogToFile(activationInfo + AccountConstants.SEPARATOR_INFO + ex.Message);
             }
         }
 

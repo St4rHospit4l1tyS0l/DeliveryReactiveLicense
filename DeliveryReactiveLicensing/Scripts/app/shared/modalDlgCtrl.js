@@ -61,11 +61,11 @@
         return def.promise;
     };
 
-    $scope.doObsolete = function(data, urlToGo) {
+    $scope.doObsolete = function(data, urlToGo, innerScp) {
         var def = $q.defer();
         sharedSvc.showConf({ Title: "Eliminar registro", Message: "¿Está seguro de que desea eliminar el registro?", Type: "danger" }).
             then(function() {
-                $scope.doPost(data, urlToGo, def);
+                $scope.doPost(data, urlToGo, def, innerScp);
             }, def.reject);
         return def.promise;
     };

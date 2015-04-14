@@ -358,8 +358,10 @@ namespace DeliveryReactiveLicensing.Controllers
                     
                         lstPeriodsResponse.Add(new PeriodResponseModel
                         {
-                            LicensePeriodBeforeId = period.PeriodId,
-                            LicensePeriodId = periodToIns.LicensePeriodId
+                            LicensePeriodBeforeId = period.LicensePeriodId,
+                            LicensePeriodId = periodToIns.LicensePeriodId,
+                            InsDateTime = periodToIns.InsDateTime.ToString(SharedConstants.DATE_FORMAT),
+                            InsUserName = User.Identity.GetUserName()
                         });
                     }
 

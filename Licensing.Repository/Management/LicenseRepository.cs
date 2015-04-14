@@ -66,6 +66,11 @@ namespace Licensing.Repository.Management
             return DbConn.ComputerServer.Count(e => e.LicensePeriodId == licensePeriodId);
         }
 
+        public decimal ClientCount(int licensePeriodId)
+        {
+            return DbConn.ComputerClient.Count(e => e.LicensePeriodId == licensePeriodId);
+        }
+
         public void AddServerInfo(ConnectionInfoModel model, int licensePeriodId)
         {
             DbConn.ComputerServer.Add(new ComputerServer
@@ -76,6 +81,8 @@ namespace Licensing.Repository.Management
                 ServerName = model.Hn,
                 ActivationLog = (new List<HardwareInfoModel> {new HardwareInfoModel{Hk = model.Hk, Hn = model.Hn}}).Serialize()
             });
+
+            DbConn.SaveChanges();
         }
 
         public void UpdateServerInfo(ComputerServer device, List<HardwareInfoModel> activationLog)
@@ -105,6 +112,7 @@ namespace Licensing.Repository.Management
                 ServerName = model.Hn,
                 ActivationLog = (new List<HardwareInfoModel> { new HardwareInfoModel { Hk = model.Hk, Hn = model.Hn } }).Serialize()
             });
+            DbConn.SaveChanges();
         }
 
         public void SaveActivationPeriod(LicensePeriod period)
@@ -112,5 +120,6 @@ namespace Licensing.Repository.Management
             period.TimestampActivation = DateTime.Now;
             DbConn.SaveChanges();
         }
+
     }
 }

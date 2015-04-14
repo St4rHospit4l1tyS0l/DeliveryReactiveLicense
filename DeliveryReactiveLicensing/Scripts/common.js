@@ -12,9 +12,9 @@ window.showUpsert = function (id, divScope, urlToGo, jqGridToUse) {
 
 };
 
-window.showConfirmService = function (id, divScope, urlToGo, title, msg, callback, jqGridToUse) {
+window.showConfirmService = function (id, divScope, urlToGo, title, msg, callback, jqGridToUse, innerScp) {
     var scope = angular.element($(divScope)).scope();
-    scope.doConfirm({ id: id }, urlToGo, title, msg).
+    scope.doConfirm({ id: id }, urlToGo, title, msg, innerScp).
         then(function () {
             if (jqGridToUse !== undefined)
                 $(jqGridToUse).trigger("reloadGrid");
@@ -32,9 +32,9 @@ window.showConfirmCancelDocument = function (id, folio, divScope, urlToGo, jqGri
         then(function () { $(jqGridToUse).trigger("reloadGrid"); });
 };
 
-window.showObsolete = function (id, divScope, urlToGo, callback, jqGridToUse) {
+window.showObsolete = function (id, divScope, urlToGo, callback, jqGridToUse, innerScp) {
     var scope = angular.element($(divScope)).scope();
-    scope.doObsolete({ id: id }, urlToGo).
+    scope.doObsolete({ id: id }, urlToGo, innerScp).
         then(function () {
             if (jqGridToUse !== undefined)
                 $(jqGridToUse).trigger("reloadGrid");

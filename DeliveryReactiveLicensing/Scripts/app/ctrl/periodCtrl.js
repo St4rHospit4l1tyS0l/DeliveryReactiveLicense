@@ -14,7 +14,7 @@
                         break;
                     }
                 }
-            });
+            }, undefined, true);
     };
 
     $scope.initCatalog = function(lstCat, m, keyItem, keyId) {
@@ -30,7 +30,7 @@
         if (id > 0) {
             window.showObsolete(id, divScope, urlToGo, function() {
                 $scope.doDeletePeriod(id);
-            });
+            }, undefined, true);
         }
         else {
             $scope.doDeletePeriod(id); 
@@ -39,7 +39,7 @@
     };
 
     $scope.doDeletePeriod = function(id) {
-        for (var i = 0, len = $scope.lstPeriods.length; i < len; i++) {
+        for (var i = $scope.lstPeriods.length-1; i >= 0; i--) {
             var period = $scope.lstPeriods[i];
             if (period.LicensePeriodId === id)
                 $scope.lstPeriods.splice(i, 1);
@@ -138,6 +138,8 @@
                     period = lstPeriods[j];
                     if (periodNew.LicensePeriodBeforeId === period.LicensePeriodId) {
                         period.LicensePeriodId = periodNew.LicensePeriodId;
+                        period.InsDateTime = periodNew.InsDateTime;
+                        period.InsUserName = periodNew.InsUserName;
                         break;
                     }
                 }
