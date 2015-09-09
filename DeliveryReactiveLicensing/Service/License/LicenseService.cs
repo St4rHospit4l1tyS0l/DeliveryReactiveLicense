@@ -198,7 +198,7 @@ namespace DeliveryReactiveLicensing.Service.License
                 sb.AppendLine("Código de activación:<br/>");
                 sb.AppendLine(result[0]);
                 sb.AppendLine("<br/>==============================================================================<br/>");
-                sb.AppendLine("Por favor ingregse la información en el módulo de activación de su sistema<br/>");
+                sb.AppendLine("Por favor ingrese la información en el módulo de activación de su sistema<br/>");
                 sb.AppendLine("==============================================================================<br/>");
                 result[0] = sb.ToString();
                 result = new[] { result[0], String.Format("CódigoActivación-{0}.txt", result[1]), result[1], result[2] };

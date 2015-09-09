@@ -104,12 +104,12 @@ namespace Licensing.Repository.Management
 
         public void AddClientInfo(ConnectionInfoModel model, int licensePeriodId)
         {
-            DbConn.ComputerServer.Add(new ComputerServer
+            DbConn.ComputerClient.Add(new ComputerClient
             {
                 HardwareId = model.Serialize(),
                 IsObsolete = false,
                 LicensePeriodId = licensePeriodId,
-                ServerName = model.Hn,
+                ClientHost = model.Hn,
                 ActivationLog = (new List<HardwareInfoModel> { new HardwareInfoModel { Hk = model.Hk, Hn = model.Hn } }).Serialize()
             });
             DbConn.SaveChanges();
