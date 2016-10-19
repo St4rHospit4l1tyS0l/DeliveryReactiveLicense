@@ -53,14 +53,17 @@
             var dtStr = $scope.m.StartDate.split(/\//);
 
             var dtStart = new Date(dtStr[2], dtStr[0]-1, dtStr[1], 0, 0, 0, 0);
-
             var dtEnd;
             for (var i = 0; i < $scope.m.PeriodNumber; i++) {
 
-                if ($scope.m.PeriodTypesId !== 2) {
+                if ($scope.m.PeriodTypesId === 1) {
                     dtEnd = new Date(dtStart.getFullYear(), dtStart.getMonth() + 1, dtStart.getDate(), 0, 0, 0, 0);
-                } else {
+                }else
+                if ($scope.m.PeriodTypesId === 2) {
                     dtEnd = new Date(dtStart.getFullYear() + 1, dtStart.getMonth(), dtStart.getDate(), 0, 0, 0, 0);
+                } else {
+                    dtEnd = new Date(dtStart.getFullYear() + 100, dtStart.getMonth(), dtStart.getDate(), 0, 0, 0, 0);
+                    $scope.m.PeriodNumber = 1;
                 }
 
                 lstPeriods.push({

@@ -206,7 +206,7 @@ namespace DeliveryReactiveLicensing.Controllers
         {
             try
             {
-                using (var repository = new GenericRepository<LicensePeriod>())
+                using (var repository = new GenericRepository<License>())
                 {
                     var model = repository.FindById(id);
                     if (model == null)
@@ -386,5 +386,51 @@ namespace DeliveryReactiveLicensing.Controllers
                 });
             }
         }
+
+
+        [HttpPost]
+        public ActionResult DoDeletePeriod(int id)
+        {
+            try
+            {
+                using (var repository = new GenericRepository<LicensePeriod>())
+                {
+                    var model = repository.FindById(id);
+                    if (model == null)
+                    {
+                        return Json(new ResponseMessageModel
+                        {
+                            HasError = true,
+                            Title = ResShared.TITLE_OBSOLETE_FAILED,
+                            Message = ResShared.ERROR_MODEL_NOTFOUND
+                        });
+                    }
+
+                    model.IsObsolete = true;
+                    model.DelDateTime = DateTime.Now;
+                    model.DelUserId = User.Identity.GetUserId();
+                    repository.Update(model);
+
+                    return Json(new ResponseMessageModel
+                    {
+                        HasError = false,
+                        Title = ResShared.TITLE_OBSOLETE_SUCCESS,
+                        Message = ResShared.INFO_REGISTER_SAVED
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedLogger.LogError(ex, id);
+                return Json(new ResponseMessageModel
+                {
+                    HasError = true,
+                    Title = ResShared.TITLE_OBSOLETE_FAILED,
+                    Message = ResShared.ERROR_UNKOWN
+                });
+            }
+        }
+
+
     }
 }

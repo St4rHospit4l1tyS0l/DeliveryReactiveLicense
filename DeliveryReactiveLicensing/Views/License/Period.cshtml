@@ -124,7 +124,7 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <div class="row">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12" ng-show="m.PeriodTypesId !== 3">
                                             <label class="col-xs-7 control-label font-noraml">No. de periodos</label>
                                             <div class="col-xs-5">
                                                 <input type="number" name="PeriodNumber" ng-model="m.PeriodNumber" min="1" max="24" ng-init="m.PeriodNumber = 12;"
@@ -212,16 +212,16 @@
                                                 </td>
                                                 <td class="element-center">
                                                     <div ng-if="period.LicensePeriodId > 0">
-                                                        <a href="javascript:;" style="display:inline-block;" title="Marcar como periodo ya pagado"
+                                                        <a href="javascript:;" style="display:inline-block;" title="Marcar como periodo ya pagado" ng-show="!period.IsPayed"
                                                            ng-click="payPeriod(period.LicensePeriodId, period.DateStartTx, period.DateEndTx, '#modalConfDlgId', '@Url.Action("DoPayment", "License")')">
                                                             <i class="fa fa-money icon-grid-st blue-light"></i>
                                                         </a>
                                                         &nbsp;<a href="javascript:;" style="display:inline-block;" title="Eliminar periodo"
-                                                                 ng-click="deletePeriod(period.LicensePeriodId, '#modalConfDlgId', '@Url.Action("DoObsolete", "License")')"><i class="fa fa-trash icon-grid-st red"></i></a>
+                                                                 ng-click="deletePeriod(period.LicensePeriodId, '#modalConfDlgId', '@Url.Action("DoDeletePeriod", "License")')"><i class="fa fa-trash icon-grid-st red"></i></a>
                                                     </div>
                                                     <div ng-if="period.LicensePeriodId <= 0">
                                                         <a href="javascript:;" style="display:inline-block;" title="Eliminar periodo"
-                                                           ng-click="deletePeriod(period.LicensePeriodId, '#modalConfDlgId', '@Url.Action("DoObsolete", "License")')"><i class="fa fa-trash icon-grid-st red"></i></a>
+                                                           ng-click="deletePeriod(period.LicensePeriodId)"><i class="fa fa-trash icon-grid-st red"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
